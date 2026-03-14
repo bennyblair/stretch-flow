@@ -4,11 +4,11 @@ import { bodyPartLabels, bodyPartEmojis, getStretchesForBodyPart } from '../data
 
 interface Props {
   bodyPart: BodyPart;
-  onStart: (exerciseCount: number, holdSeconds: number) => void;
+  onNext: (exerciseCount: number, holdSeconds: number) => void;
   onBack: () => void;
 }
 
-export function SessionConfig({ bodyPart, onStart, onBack }: Props) {
+export function SessionConfig({ bodyPart, onNext, onBack }: Props) {
   const maxAvailable = getStretchesForBodyPart(bodyPart).length;
   const maxExercises = Math.min(10, maxAvailable);
 
@@ -65,7 +65,7 @@ export function SessionConfig({ bodyPart, onStart, onBack }: Props) {
           <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
             Number of Exercises
           </label>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center justify-center gap-4">
             <button
               onClick={() => setCount((c) => Math.max(5, c - 1))}
               disabled={count <= 5}
@@ -122,11 +122,11 @@ export function SessionConfig({ bodyPart, onStart, onBack }: Props) {
       {/* Start button */}
       <div className="mt-auto pt-8">
         <button
-          onClick={() => onStart(count, duration)}
+          onClick={() => onNext(count, duration)}
           disabled={!isValid}
           className="w-full py-4 bg-primary-500 hover:bg-primary-600 active:scale-95 disabled:opacity-40 disabled:pointer-events-none text-white font-semibold text-lg rounded-2xl shadow-lg transition-all"
         >
-          Begin Stretching
+          Preview Exercises →
         </button>
       </div>
     </div>

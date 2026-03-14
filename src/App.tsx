@@ -6,6 +6,7 @@ import { ThemeToggle } from './components/ThemeToggle';
 import { Home } from './pages/Home';
 import { BodyPartPicker } from './pages/BodyPartPicker';
 import { SessionConfig } from './pages/SessionConfig';
+import { SessionPreview } from './pages/SessionPreview';
 import { StretchSession } from './pages/StretchSession';
 import { SessionComplete } from './pages/SessionComplete';
 
@@ -24,15 +25,20 @@ export default function App() {
     setScreen('config');
   }, []);
 
-  const handleStartSession = useCallback(
+  const handleConfigNext = useCallback(
     (count: number, duration: number) => {
       setExerciseCount(count);
       setHoldSeconds(duration);
       setSessionStretches(pickRandomStretches(bodyPart, count));
-      setScreen('session');
+      setScreen('preview');
     },
     [bodyPart]
   );
+
+  const handlePreviewConfirm = useCallback((stretches: Stretch[]) => {
+    setSessionStretches(stretches);
+    setScreen('session');
+  }, []);
 
   const handleSessionComplete = useCallback(() => {
     setScreen('complete');
@@ -58,8 +64,18 @@ export default function App() {
       {screen === 'config' && (
         <SessionConfig
           bodyPart={bodyPart}
-          onStart={handleStartSession}
+          onNext={handleConfigNext}
           onBack={() => setScreen('body-part')}
+        />
+      )}
+
+      {screen === 'preview' && sessionStretches.length > 0 && (
+        <SessionPreview
+          stretches={sessionStretches}
+          bodyPart={bodyPart}
+          holdSeconds={holdSeconds}
+          onConfirm={handlePreviewConfirm}
+          onBack={() => setScreen('config')}
         />
       )}
 

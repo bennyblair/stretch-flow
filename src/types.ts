@@ -25,5 +25,6 @@ export type Screen =
   | 'home'
   | 'body-part'
   | 'config'
+  | 'preview'
   | 'session'
   | 'complete';
