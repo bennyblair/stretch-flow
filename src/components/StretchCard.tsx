@@ -1,4 +1,5 @@
 import type { Stretch } from '../types';
+import { StretchIllustration } from './StretchIllustration';
 
 interface Props {
   stretch: Stretch;
@@ -14,10 +15,8 @@ export function StretchCard({ stretch, currentIndex, totalCount }: Props) {
         {currentIndex + 1} of {totalCount}
       </p>
 
-      {/* Stretch image/emoji */}
-      <div className="text-7xl" role="img" aria-label={stretch.name}>
-        {stretch.image}
-      </div>
+      {/* Stretch illustration */}
+      <StretchIllustration stretchId={stretch.id} />
 
       {/* Stretch name */}
       <h2 className="text-2xl font-bold text-slate-800 dark:text-white text-center">

@@ -12,7 +12,6 @@ export interface Stretch {
   name: string;
   bodyPart: BodyPart;
   instructions: string;
-  image: string; // SVG data URI or path
 }
 
 export interface SessionConfig {
