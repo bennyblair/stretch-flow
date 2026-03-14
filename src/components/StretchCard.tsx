@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import type { Stretch } from '../types';
-import { StretchIllustration } from './StretchIllustration';
 
 interface Props {
   stretch: Stretch;
@@ -8,6 +8,8 @@ interface Props {
 }
 
 export function StretchCard({ stretch, currentIndex, totalCount }: Props) {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <div className="flex flex-col items-center gap-4 px-4">
       {/* Progress */}
@@ -15,8 +17,19 @@ export function StretchCard({ stretch, currentIndex, totalCount }: Props) {
         {currentIndex + 1} of {totalCount}
       </p>
 
-      {/* Stretch illustration */}
-      <StretchIllustration stretchId={stretch.id} />
+      {/* Stretch image */}
+      <div className="w-48 h-48 rounded-2xl overflow-hidden bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
+        {!imgError ? (
+          <img
+            src={stretch.imageUrl}
+            alt={stretch.name}
+            className="w-full h-full object-cover"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <span className="text-6xl">🧘</span>
+        )}
+      </div>
 
       {/* Stretch name */}
       <h2 className="text-2xl font-bold text-slate-800 dark:text-white text-center">

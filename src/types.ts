@@ -12,6 +12,7 @@ export interface Stretch {
   name: string;
   bodyPart: BodyPart;
   instructions: string;
+  imageUrl: string;
 }
 
 export interface SessionConfig {
